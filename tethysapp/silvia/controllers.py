@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from tethys_sdk.permissions import login_required
-from tethys_sdk.gizmos import Button
+from tethys_sdk.routing import controller
 from .app import Silvia as app
 import pandas as pd
 from requests import Request
@@ -10,8 +10,10 @@ from .model import FloodExtent
 from sqlalchemy.orm import sessionmaker
 from rest_framework.decorators import api_view,authentication_classes, permission_classes
 import json
+
 Persistent_Store_Name = 'flooded_addresses'
-@login_required()
+
+@controller(name='home',url='silvia')
 def home(request):
     """
     Controller for the app home page.
@@ -24,6 +26,7 @@ def home(request):
 
     return render(request, 'silvia/home.html', context)
 
+@controller(name='floods',url='silvia/floods')
 @api_view(['GET', 'POST'])
 @authentication_classes([])
 @permission_classes([])
@@ -123,6 +126,7 @@ def floodAtributes(request):
     
     return JsonResponse(geojson_flood_extent)
 
+@controller(name='dates',url='silvia/dates')
 @api_view(['GET', 'POST'])
 @authentication_classes([])
 @permission_classes([])

@@ -17,32 +17,32 @@ class Silvia(TethysAppBase):
     tags = ''
     enable_feedback = False
     feedback_emails = []
+    controller_modules = [ "controllers" ]
+    # def url_maps(self):
+    #     """
+    #     Add controllers
+    #     """
+    #     UrlMap = url_map_maker(self.root_url)
 
-    def url_maps(self):
-        """
-        Add controllers
-        """
-        UrlMap = url_map_maker(self.root_url)
+    #     url_maps = (
+    #         UrlMap(
+    #             name='home',
+    #             url='silvia',
+    #             controller='silvia.controllers.home'
+    #         ),
+    #         UrlMap(
+    #             name='floods',
+    #             url='floods/',
+    #             controller='silvia.controllers.floodAtributes'
+    #         ),
+    #         UrlMap(
+    #             name='dates',
+    #             url='dates/',
+    #             controller='silvia.controllers.floodDates'
+    #         ),
+    #     )
 
-        url_maps = (
-            UrlMap(
-                name='home',
-                url='silvia',
-                controller='silvia.controllers.home'
-            ),
-            UrlMap(
-                name='floods',
-                url='floods/',
-                controller='silvia.controllers.floodAtributes'
-            ),
-            UrlMap(
-                name='dates',
-                url='dates/',
-                controller='silvia.controllers.floodDates'
-            ),
-        )
-
-        return url_maps
+    #     return url_maps
     
     def custom_settings(self):
         """
