@@ -8,7 +8,7 @@ class Silvia(TethysAppBase):
     """
 
     name = 'Silvia'
-    index = 'silvia:home'
+    index = 'home'
     icon = 'silvia/images/silvia.png'
     package = 'silvia'
     root_url = 'silvia'
