@@ -157,7 +157,12 @@ def getDepartaments(request, app_workspace):
 @permission_classes([])
 def getDepartmentJson(request,app_workspace):
     print(request.data.get('department'))
-    department = request.data.get('department').upper().replace(" ","_")
+    if request.data.get('department') != "Peru":
+        print("hey")
+        department = request.data.get('department').upper().replace(" ","_")
+    else:
+        print("asfgasg")
+        department =request.data.get('department')
     print(department)
     aw_path = app_workspace.path
     try:
