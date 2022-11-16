@@ -10,7 +10,7 @@ from .model import FloodExtent
 from sqlalchemy.orm import sessionmaker
 from rest_framework.decorators import api_view,authentication_classes, permission_classes
 import json
-
+import os
 Persistent_Store_Name = 'flooded_addresses'
 
 @controller(name='home',url='silvia')
@@ -137,3 +137,41 @@ def floodDates(request):
     list_dates = df["date"].values.tolist()
     list_dates = list_dates[::-1]
     return JsonResponse({"dates":list_dates})
+
+
+@controller(name='departments',url='silvia/departments', app_workspace=True)
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def getDepartaments(request, app_workspace):
+    
+    aw_path = app_workspace.path
+        # Select Region
+    region_index = json.load(open(os.path.join(aw_path, 'geojson', 'index.json')))
+    dp=[region_index[opt]['name'] for opt in region_index]
+    return JsonResponse({"departments":dp})
+
+@controller(name='departments-json',url='silvia/departments-json', app_workspace=True)
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def getDepartmentJson(request,app_workspace):
+    print(request.data.get('department'))
+    department = request.data.get('department').upper().replace(" ","_")
+    print(department)
+    aw_path = app_workspace.path
+    try:
+        region_json = json.load(open(os.path.join(aw_path, 'geojson', f'{department}.json')))
+    except:
+        region_json = {
+            'type': 'FeatureCollection',
+            'crs': {
+                'type': 'name',
+                'properties': {
+                    'name': 'EPSG:4326'
+                }
+            },
+            'features': []
+        }
+    
+    return JsonResponse(region_json)
