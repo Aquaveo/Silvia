@@ -1,8 +1,4 @@
 {
-  "peru": {
-    "name": "Peru",
-    "geojsons": ["Peru.json"]
-  },
   "0144_Mauri": {
     "name": "0144 Mauri",
     "geojsons": ["0144_Mauri.json"]

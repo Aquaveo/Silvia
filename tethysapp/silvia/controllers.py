@@ -180,3 +180,85 @@ def getDepartmentJson(request,app_workspace):
         }
     
     return JsonResponse(region_json)
+
+
+@controller(name='provincias',url='silvia/provincias', app_workspace=True)
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def getProvinces(request, app_workspace):
+    
+    aw_path = app_workspace.path
+        # Select Region
+    region_index = json.load(open(os.path.join(aw_path, 'geojson2', 'index2.json')))
+    dp=[region_index[opt]['name'] for opt in region_index]
+    return JsonResponse({"provinces":dp})
+
+@controller(name='provincias-json',url='silvia/provincias-json', app_workspace=True)
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def getProvincesJson(request,app_workspace):
+    print(request.data.get('provincia'))
+    if request.data.get('provincia') != "Peru":
+        province = request.data.get('provincia').upper().replace(" ","_")
+    else:
+        province =request.data.get('provincia')
+    print(province)
+    aw_path = app_workspace.path
+    try:
+        region_json = json.load(open(os.path.join(aw_path, 'geojson2', f'{province}.json')))
+    except:
+        region_json = {
+            'type': 'FeatureCollection',
+            'crs': {
+                'type': 'name',
+                'properties': {
+                    'name': 'EPSG:4326'
+                }
+            },
+            'features': []
+        }
+    
+    return JsonResponse(region_json)
+
+
+@controller(name='basins',url='silvia/basins', app_workspace=True)
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def getBasins(request, app_workspace):
+    
+    aw_path = app_workspace.path
+        # Select Region
+    region_index = json.load(open(os.path.join(aw_path, 'geojson3', 'index3.json')))
+    dp=[region_index[opt]['name'] for opt in region_index]
+    return JsonResponse({"basin":dp})
+
+@controller(name='basin-json',url='silvia/basin-json', app_workspace=True)
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def getBasinsJson(request,app_workspace):
+    print(request.data.get('basin'))
+    if request.data.get('basin') != "Peru":
+        basin = request.data.get('basin').replace(" ","_")
+    else:
+        basin =request.data.get('basin')
+    print(basin)
+    aw_path = app_workspace.path
+    try:
+        region_json = json.load(open(os.path.join(aw_path, 'geojson3', f'{basin}.json')))
+    except:
+        region_json = {
+            'type': 'FeatureCollection',
+            'crs': {
+                'type': 'name',
+                'properties': {
+                    'name': 'EPSG:4326'
+                }
+            },
+            'features': []
+        }
+    
+    return JsonResponse(region_json)

@@ -1,8 +1,4 @@
 {
-  "peru": {
-    "name": "Peru",
-    "geojsons": ["Peru.json"]
-  },
   "0101_CHACHAPOYAS": {
     "name": "0101 CHACHAPOYAS",
     "geojsons": ["0101_CHACHAPOYAS.json"]
